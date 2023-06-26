@@ -11,7 +11,7 @@ const Login = () => {
                   <video src={ video } autoPlay muted loop></video>
                   <div className='textDiv'>
                       <h2 className='title'>Welcome to TreetQuest</h2>
-                      <p>An App that can make you happy!</p>
+                      <p>An App that can make you happy! Jkjk</p>
                   </div>
                   <div className='footerDiv flex'>
                       <span className='text'>Don't have an Account?</span>
