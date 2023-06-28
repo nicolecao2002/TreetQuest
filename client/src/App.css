@@ -92,6 +92,7 @@ img, video {
 
 /*# Login page Styling*/
 .loginPage, .registerPage {
+  background-color: rgb(58, 148, 102);
   height: 100vh;
   width: 100%;
   margin: auto;
@@ -255,5 +256,34 @@ img, video {
   text-decoration: underline;
   cursor: pointer;
   opacity: 0.7;
+}
+
+@media screen and (max-width: 927px) {
+  .loginPage .container .videoDiv .textDiv .title, .registerPage .container .videoDiv .textDiv .title {
+    font-size: 25px;
+  }
+  .loginPage .container .videoDiv .textDiv p, .registerPage .container .videoDiv .textDiv p {
+    padding: 1rem;
+  }
+  .loginPage .container .videoDiv .footerDiv, .registerPage .container .videoDiv .footerDiv {
+    gap: 1rem;
+    transform: translateY(-0.5rem);
+  }
+  .loginPage .container .footerDiv .text, .registerPage .container .footerDiv .text {
+    font-size: 12px;
+  }
+  .loginPage .container .footerDiv .btn, .registerPage .container .footerDiv .btn {
+    padding: 0.8rem 1.5rem;
+  }
+  .loginPage .container .formDiv .headerDiv, .registerPage .container .formDiv .headerDiv {
+    padding: 1.5rem 0;
+  }
+  .loginPage .container .formDiv .headerDiv h3, .registerPage .container .formDiv .headerDiv h3 {
+    font-size: 20px;
+  }
+  .loginPage .container .formDiv .form .inputDiv .input, .registerPage .container .formDiv .form .inputDiv .input {
+    width: 100%;
+    max-width: 200px;
+  }
 }
 /*# sourceMappingURL=App.css.map */

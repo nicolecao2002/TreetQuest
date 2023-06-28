@@ -38,7 +38,7 @@ const Register = () => {
                     <div className="inputDiv">
                         <label htmlFor='email'>Email</label>
                         <div className="input flex">
-                            <FaUserShield className='icon' />
+                            <MdMarkEmailRead className='icon' />
                             <input type='email' id='email' placeholder='Enter email'/>
                         </div>
                         </div>
@@ -46,7 +46,7 @@ const Register = () => {
                     <div className="inputDiv">
                         <label htmlFor='username'>Username</label>
                         <div className="input flex">
-                            <MdMarkEmailRead className='icon' />
+                            <FaUserShield className='icon'/>
                             <input type='text' id='username' placeholder='Enter Username'/>
                         </div>
                     </div>
