@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom'
 
 /* create router*/
+/* ask dr palacios */
 const router = createBrowserRouter( [
     {
         path: '/',
