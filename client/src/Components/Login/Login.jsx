@@ -3,7 +3,7 @@ import './Login.css'
 import '../../App.css'
 import video from '../../LoginAssets/video.mp4'
 import logo from '../../LoginAssets/logo.png'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { FaUserShield } from 'react-icons/fa'
 import { BsFillShieldLockFill } from 'react-icons/bs'
 import { AiOutlineSwapRight } from 'react-icons/ai'
@@ -12,7 +12,8 @@ import Axios from 'axios'
 const Login = () =>
 {
 const [ loginUserName, setLoginUserName ] = useState( '' ) 
-const [ loginPassword, setLoginPassword ] = useState( '' )
+    const [ loginPassword, setLoginPassword ] = useState( '' )
+    const navigateTo = useNavigate();
  const loginUser = (e) =>
  {
        e.preventDefault();
@@ -23,8 +24,14 @@ const [ loginPassword, setLoginPassword ] = useState( '' )
             LoginPassword: loginPassword
         } ).then( (response) =>
         {
-            console.log(response)
-
+            console.log(response.data.message)
+            if ( response.data.message )
+            {
+                navigateTo('/') // login to same page
+            } else
+            {
+                navigateTo('/dashboard')
+            }
         } );
     } 
     
