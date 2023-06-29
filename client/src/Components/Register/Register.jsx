@@ -13,8 +13,9 @@ const Register = () =>
 {
     // hold the variables
     const [ email, setEmail ] = useState( '' )
-    const [ userName, setUsername ] = useState( '' )
+    const [ userName, setUserName ] = useState( '' ) // watchout for user
     const [ password, setPassword ] = useState( '' )
+    
     const createUser = () =>
     {
         //require axios to create an API that connects to the server
@@ -23,8 +24,12 @@ const Register = () =>
             Email: email,
             UserName: userName,
             Password: password
-        }).then(()=>{console.log('User has been created.')});
+        } ).then( () =>
+        {
+            console.log( 'User has been created.' )
+        } );
     }
+    
     return (
         <div className='registerPage flex'>
           <div className='container flex'>
@@ -62,7 +67,7 @@ const Register = () =>
                         <label htmlFor='username'>Username</label>
                         <div className="input flex">
                             <FaUserShield className='icon'/>
-                            <input type='text' id='username' placeholder='Enter Username' onChange={(event)=>{setUsername(event.target.value)}}/>
+                            <input type='text' id='username' placeholder='Enter Username' onChange={(event)=>{setUserName(event.target.value)}}/>
                         </div>
                     </div>
                     

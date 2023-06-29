@@ -15,15 +15,16 @@ app.listen( 3002, () =>
 const db = mysql.createConnection( {
     user: 'root',
     host: 'localhost',
-    password: 'Shen19760129!',
+    password: '',
     database: 'TreetQuest',
 } );
 
 // setup a route to the server that will register a user
-app.post( '/register', ( req, res ) =>
+app.post( '/register', (req, res) =>
 {
+    //variavle
     const sentEmail = req.body.Email
-    const sentUsername = req.body.Username
+    const sentUsername = req.body.UserName
     const sentPassword = req.body.Password
 
     // sql statements to insert the user to the database
@@ -33,9 +34,11 @@ app.post( '/register', ( req, res ) =>
     //Query to execute the sql statement stated above
     db.query( SQL, Values, ( err, results ) =>
     {
+        console.log( 'before if' )
         if ( err )
         {
-            console.log( 'sad' )
+            console.log(err)
+            console.log( 'hiii' )
             res.send(err)
         } else
         {
