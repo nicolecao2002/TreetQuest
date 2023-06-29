@@ -1,16 +1,34 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './Login.css'
 import '../../App.css'
 import video from '../../LoginAssets/video.mp4'
 import logo from '../../LoginAssets/logo.png'
-import {Link, NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { FaUserShield } from 'react-icons/fa'
 import { BsFillShieldLockFill } from 'react-icons/bs'
 import { AiOutlineSwapRight } from 'react-icons/ai'
+import Axios from 'axios'
 
 const Login = () =>
 {
-  return (
+const [ loginUserName, setLoginUserName ] = useState( '' ) 
+const [ loginPassword, setLoginPassword ] = useState( '' )
+ const loginUser = (e) =>
+ {
+       e.preventDefault();
+        //require axios to create an API that connects to the server
+        Axios.post('http://localhost:3002/login', { //TODD
+            //create variable to send to the server
+            LoginUserName: loginUserName,
+            LoginPassword: loginPassword
+        } ).then( (response) =>
+        {
+            console.log(response)
+
+        } );
+    } 
+    
+return (
     <div className='loginPage flex'>
           <div className='container flex'>
               
@@ -41,7 +59,7 @@ const Login = () =>
                         <label htmlFor='username'>Username</label>
                         <div className="input flex">
                             <FaUserShield className='icon' />
-                            <input type='text' id='username' placeholder='Enter Username'/>
+                            <input type='text' id='username' placeholder='Enter Username' onChange={(event)=>{ setLoginUserName(event.target.value)}}/>
                         </div>
                     </div>
                     
@@ -49,11 +67,11 @@ const Login = () =>
                         <label htmlFor='password'>Password</label>
                         <div className="input flex">
                             <BsFillShieldLockFill className='icon' />
-                            <input type='password' id='password' placeholder='Enter Password'/>
+                            <input type='password' id='password' placeholder='Enter Password' onChange={(event)=>{setLoginPassword(event.target.value)}}/>
                         </div>
                     </div>
 
-                    <button type='submit' className='btn flex'>
+                    <button type='submit' className='btn flex' onClick={loginUser}>
                         <span>Login</span>
                         <AiOutlineSwapRight className='icon'/>           
                     </button>
