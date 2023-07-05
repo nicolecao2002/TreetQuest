@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import './Login.css'
 import '../../App.css'
 import video from '../../LoginAssets/video.mp4'
@@ -11,9 +11,12 @@ import Axios from 'axios'
 
 const Login = () =>
 {
-const [ loginUserName, setLoginUserName ] = useState( '' ) 
-    const [ loginPassword, setLoginPassword ] = useState( '' )
-    const navigateTo = useNavigate();
+const [ loginUserName, setLoginUserName ] = useState('') 
+const [loginPassword, setLoginPassword ] = useState('')
+const navigateTo = useNavigate();
+const [ loginStatus, setLoginStatus ] = useState( '' )
+const [ statusHolder, setStatusHolder ] = useState( 'message' )
+    
  const loginUser = (e) =>
  {
        e.preventDefault();
@@ -27,13 +30,26 @@ const [ loginUserName, setLoginUserName ] = useState( '' )
             console.log(response.data.message)
             if ( response.data.message )
             {
-                navigateTo('/') // login to same page
+                navigateTo( '/' ) // login to same page
+                setLoginStatus('Credentials do not exist!')
             } else
             {
                 navigateTo('/dashboard')
             }
         } );
     } 
+    useEffect( () =>
+    {
+        if ( loginStatus !== '' )
+        {
+            setStatusHolder( 'showMessage' )
+            setTimeout( () =>
+            {
+                setStatusHolder( 'message' ) //hide after
+            }, 4000);
+        }
+        
+    },[loginStatus])
     
 return (
     <div className='loginPage flex'>
@@ -60,7 +76,7 @@ return (
                   
                   <form action="" className='form gird'>
                   
-                    {/* <span className='showMessage'>Login status will go here</span> */}
+                    <span className={ statusHolder }>{ loginStatus }</span>
                     
                     <div className="inputDiv">
                         <label htmlFor='username'>Username</label>

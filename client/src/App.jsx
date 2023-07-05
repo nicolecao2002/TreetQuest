@@ -3,6 +3,7 @@ import "./App.css"
 import Dashboard from './Components/Dashboard/Dashboard'
 import Register from './Components/Register/Register'
 import Login from './Components/Login/Login'
+//import TodolistAll from './Components/Dashboard/TodolistMain'
 //import Avatar from './Components/Avatar/Avatar'
 
 import {
@@ -10,8 +11,8 @@ import {
     RouterProvider  
 } from 'react-router-dom'
 
+
 /* create router*/
-/* ask dr palacios */
 const router = createBrowserRouter( [
     {
         path: '/',
@@ -30,8 +31,8 @@ const router = createBrowserRouter( [
     },
     
     // {
-    //     path: '/avatar',
-    //     element: <div> <Avator /></div>
+    //     path: '/todolistAll',
+    //     element: <div> <Todolist /></div>
     // },
 ]);
 
@@ -44,4 +45,4 @@ function App() {
   )
 }
 
-export default App
+export default App //a capitalize letter indicate it's a component 
