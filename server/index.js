@@ -13,10 +13,11 @@ app.listen( 3002, () =>
 
 //create database
 const db = mysql.createConnection( {
-    user: 'root',
+    user: 'nicole_cao',
+    password : 'Asdf1234@',
     host: 'localhost',
-    password: '',
     database: 'TreetQuest',
+   
 } );
 
 // setup a route to the server that will register a user
