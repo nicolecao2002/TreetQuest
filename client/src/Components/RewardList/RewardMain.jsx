@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 const RewardMain = () =>
 {
     const [ newItem, setNewItem ] = useState("");// new state variable and new function. can not directly update state variable, inmutable, call the set function,and rerender the entire component. 
-    const [ todos, setTodos ] = useState(() => {
+    const [ reward, setRewards ] = useState(() => {
     const localValue = localStorage.getItem("ITEMS")
     if (localValue == null) return []
     return JSON.parse(localValue)
@@ -13,8 +13,8 @@ const RewardMain = () =>
     //local storage
     useEffect( () =>
     {
-        localStorage.setItem( "ITEMS", JSON.stringify( todos ) )
-    }, [ todos ] ) //every time todo is changed call that function. 
+        localStorage.setItem( "ITEMS", JSON.stringify( reward ) )
+    }, [ reward ] ) //every time reward is changed call that function. 
    
     function handleSubmit ( e )
     {
@@ -23,9 +23,9 @@ const RewardMain = () =>
          // the end.
          
         // passing a function
-        setTodos( currentTodos => {
+        setRewards( currentreward => {
             return [
-                ...currentTodos,
+                ...currentreward,
                 { id: crypto.randomUUID(), title: newItem, completed: false },
             ]
         } )
@@ -33,27 +33,27 @@ const RewardMain = () =>
     }
    
     // for check funtion 
-    function toggleTodo ( id, completed )
+    function togglereward ( id, completed )
     {
-        setTodos( currentTodos =>
+        setRewards( currentreward =>
         {
-            return currentTodos.map( todo =>
+            return currentreward.map( reward =>
             {
-                if ( todo.id === id )
+                if ( reward.id === id )
                 {
-                    return {...todo, completed}
+                    return {...reward, completed}
                 }
-                return todo
+                return reward
             })
         })
     }
    
     // for delete funciton
-    function deleteTodo ( id )
+    function deleteReward ( id )
     {
-        setTodos( currentTodos =>
+        setRewards( currentreward =>
         {
-            return currentTodos.filter(todo => todo.id !== id)
+            return currentreward.filter(reward => reward.id !== id)
         })
     }
     return (
@@ -72,18 +72,18 @@ const RewardMain = () =>
             </form>
             <h1 className="header">Reward List</h1>
             <ul className="list">
-                {todos.length === 0 && "No Rewards"}
-                { todos.map( todo =>
+                {reward.length === 0 && "No Rewards"}
+                { reward.map( reward =>
                 {
-                    return <li key={todo.id}>
+                    return <li key={reward.id}>
                             <label>
-                            <input type="checkbox" checked={ todo.completed} onChange={e => toggleTodo(todo.id,e.target.checked)}/>{todo.title}      
+                            <input type="checkbox" checked={ reward.completed} onChange={e => togglereward(reward.id,e.target.checked)}/>{reward.title}      
                             </label>
-                        <button onClick={()=> deleteTodo(todo.id) } className="btn btn-danger">Delete</button>
+                        <button onClick={()=> deleteReward(reward.id) } className="btn btn-danger">Delete</button>
                     </li>
                 })}
             </ul>
-            
+             <a href="/">Log Out</a>
         </div>
     )
 }
