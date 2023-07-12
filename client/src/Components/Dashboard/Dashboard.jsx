@@ -5,6 +5,7 @@ const Dashboard = () => {
     <div>
           This is Dashboard page!
           <a href="/todolistMain">ToDO</a>
+           <a href="/rewardMain">Reward</a>
           <a href="/">Log Out</a>
 
     </div>
