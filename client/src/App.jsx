@@ -3,7 +3,7 @@ import "./App.css"
 import Dashboard from './Components/Dashboard/Dashboard'
 import Register from './Components/Register/Register'
 import Login from './Components/Login/Login'
-//import TodolistAll from './Components/Dashboard/TodolistMain'
+import TodolistMain from './Components/ToDoList/TodolistMain'
 //import Avatar from './Components/Avatar/Avatar'
 
 import {
@@ -30,10 +30,10 @@ const router = createBrowserRouter( [
     element: <div> <Dashboard/></div>
     },
     
-    // {
-    //     path: '/todolistAll',
-    //     element: <div> <Todolist /></div>
-    // },
+    {
+        path: '/todolistMain',
+        element: <div> <TodolistMain /></div>
+    },
 ]);
 
 function App() {

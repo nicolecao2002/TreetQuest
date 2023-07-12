@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500;700&display=swap");
 * {
   padding: 0;
@@ -285,5 +286,126 @@ img, video {
     width: 100%;
     max-width: 200px;
   }
+}
+.todolistCon {
+  padding: 1rem;
+  background-color: rgb(58, 148, 102);
+  height: 100vh;
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 7px 50px rgb(214, 223, 213);
+}
+.todolistCon .new-item-form {
+  max-width: 450px;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.todolistCon .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.todolistCon .btn {
+  background: hsla(200deg, 100%, 50%, 0.1);
+  border: 1px solid hsl(200deg, 100%, 50%);
+  color: hsl(200deg, 100%, 50%);
+  padding: 0.25em 0.5em;
+  border-radius: 0.25em;
+  cursor: pointer;
+  outline: none;
+}
+.todolistCon .btn:hover,
+.todolistCon .btn:focus-visible {
+  background: hsla(200deg, 100%, 50%, 0.2);
+}
+.todolistCon .btn.btn-danger {
+  background: hsla(0deg, 100%, 40%, 0.1);
+  border: 1px solid hsl(0deg, 100%, 40%);
+  color: hsl(0deg, 100%, 40%);
+}
+.todolistCon .btn.btn-danger:hover,
+.todolistCon .btn.btn-danger:focus-visible {
+  background: hsla(0deg, 100%, 40%, 0.2);
+}
+.todolistCon .new-item-form input {
+  outline: none;
+  border: 1px solid hsl(200deg, 100%, 40%);
+  background: hsl(200deg, 100%, 30%);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  color: hsl(200deg, 100%, 90%);
+}
+.todolistCon .new-item-form input:focus {
+  border: 1px solid hsl(200deg, 100%, 70%);
+}
+.todolistCon .header {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.todolistCon .list {
+  margin: 0;
+  padding: 0;
+  margin-left: 1rem;
+  list-style: none;
+}
+.todolistCon .list li:has(input:checked) label {
+  color: hsl(200deg, 20%, 40%);
+}
+.todolistCon .list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.todolistCon .list li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.todolistCon .list li label {
+  display: flex;
+  gap: 0.25rem;
+  cursor: pointer;
+  align-items: center;
+}
+.todolistCon .list li:has(input:focus-visible) label {
+  outline: 1px solid hsl(200deg, 100%, 50%);
+}
+.todolistCon .list li input {
+  outline: none;
+  width: 0;
+  height: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  pointer-events: none;
+  position: absolute;
+}
+.todolistCon .list li label::before {
+  content: "";
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: hsl(200deg, 100%, 90%);
+  border-radius: 0.25em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todolistCon .list li label:hover::before {
+  background: hsl(200deg, 100%, 80%);
+}
+.todolistCon .list li:has(input:checked) label::before {
+  content: "✔";
+  background: hsl(200deg, 100%, 40%);
+  color: hsl(200deg, 100%, 90%);
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.todolistCon .list li:has(input:checked) label:hover::before {
+  background: hsl(200deg, 100%, 30%);
 }
 /*# sourceMappingURL=App.css.map */

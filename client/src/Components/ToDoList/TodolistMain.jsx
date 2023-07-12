@@ -1,7 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from "react"
 import { NewTodoForm } from "./NewToDoForm"
-import "./styles.css"
+//import "./todolist.css"
+import '../../App.css'
 import { TodoList } from "./TodoList"
 
 const TodolistMain = () => {
@@ -44,10 +45,13 @@ const TodolistMain = () => {
   }
 
   return (
-    <>
+      <>
+      <div className= "todolistCon">   
       <NewTodoForm onSubmit={addTodo} />
       <h1 className="header">Todo List</h1>
-      <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
+          <TodoList todos={ todos } toggleTodo={ toggleTodo } deleteTodo={ deleteTodo } />
+              <a href="/dashboard">Dashboard</a>
+     </div>
     </>
   )
 }
