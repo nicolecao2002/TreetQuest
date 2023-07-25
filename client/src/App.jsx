@@ -38,6 +38,7 @@ const router = createBrowserRouter( [
         path: '/rewardMain',
         element: <div> <RewardMain /></div>
     },
+    
 ]);
 
 function App() {

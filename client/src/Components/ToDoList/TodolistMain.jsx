@@ -5,18 +5,18 @@ import '../../App.css'
 
 
 const TodolistMain = () => {
-    const [ newItem, setNewItem ] = useState("");
-    const [ todos, setTodos ] = useState(() => {
+    // const [ newItem, setNewItem ] = useState("");
+    // const [ todos, setTodos ] = useState(() => {
     
-    const localValue = localStorage.getItem( "ITEMS" )
-    if (localValue == null) return []
-    return JSON.parse(localValue)
-    } ); 
+    // const localValue = localStorage.getItem( "ITEMS" )
+    // if (localValue == null) return []
+    // return JSON.parse(localValue)
+    // } ); 
    
-    useEffect( () =>
-    {
-        localStorage.setItem( "ITEMS", JSON.stringify( todos ) )
-    }, [ todos ] ) //every time todo is changed call that function. 
+    // useEffect( () =>
+    // {
+    //     localStorage.setItem( "ITEMS", JSON.stringify( todos ) )
+    // }, [ todos ] ) //every time todo is changed call that function. 
    
     function handleSubmit ( e )
     {
@@ -32,29 +32,30 @@ const TodolistMain = () => {
     }
    
     // for check funtion 
-    function toggleTodo ( id, completed )
-    {
-        setTodos( currentTodos =>
-        {
-            return currentTodos.map( todo =>
-            {
-                if ( todo.id === id )
-                {
-                    return {...todo, completed}
-                }
-                return todo
-            })
-        })
-    }
+    // function toggleTodo ( id, completed )
+    // {
+    //     setTodos( currentTodos =>
+    //     {
+    //         return currentTodos.map( todo =>
+    //         {
+    //             if ( todo.id === id )
+    //             {
+    //                 return {...todo, completed}
+    //             }
+    //             return todo
+    //         })
+    //     })
+    // }
    
-    // for delete funciton
-    function deleteTodo ( id )
-    {
-        setTodos( currentTodos =>
-        {
-            return currentTodos.filter(todo => todo.id !== id)
-        })
-    }
+    // // for delete funciton
+    // function deleteTodo ( id )
+    // {
+    //     setTodos( currentTodos =>
+    //     {
+    //         return currentTodos.filter(todo => todo.id !== id)
+    //     })
+    // }
+
     return (
         <div>
             <form onSubmit={handleSubmit} className="new_item_form">
@@ -69,7 +70,9 @@ const TodolistMain = () => {
                 </div>
                 <button className="btn">Add</button>
             </form>
-            <h1 className="header">Todo List</h1>
+           
+           
+            {/* <h1 className="header">Todo List</h1>
             <ul className="list">
                 {todos.length === 0 && "No Rewards"}
                 { todos.map( todo =>
@@ -81,7 +84,7 @@ const TodolistMain = () => {
                         <button onClick={()=> deleteTodo(todo.id) } className="btn btn-danger">Delete</button>
                     </li>
                 })}
-            </ul>
+            </ul> */}
              <a href="/dashboard">Return</a>
         </div>
     )

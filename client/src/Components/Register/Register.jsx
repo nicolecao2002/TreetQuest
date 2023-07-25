@@ -19,12 +19,13 @@ const Register = () =>
     const createUser = () =>
     {
         //require axios to create an API that connects to the server
+        console.log( "hi" );
         Axios.post('http://localhost:3002/register', {
             //create variable to send to the server
             Email: email,
             UserName: userName,
             Password: password
-        } ).then( () =>
+        },  {withCredentials: true}).then( () =>
         {
             console.log( 'User has been created.' )
         } );
@@ -79,7 +80,7 @@ const Register = () =>
                         </div>
                     </div>
 
-                    <button type='submit' className='btn flex' onClick={createUser}>
+                    <button type='button' className='btn flex' onClick={createUser}>
                         <span>Register</span>
                         <AiOutlineSwapRight className='icon'/>           
                     </button>

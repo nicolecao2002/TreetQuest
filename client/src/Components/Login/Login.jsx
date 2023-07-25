@@ -21,20 +21,21 @@ const [ statusHolder, setStatusHolder ] = useState( 'message' )
  {
        e.preventDefault();
         //require axios to create an API that connects to the server
-        Axios.post('http://localhost:3002/login', { //TODD
+        Axios.post('http://localhost:3002/login',  { //TODD
             //create variable to send to the server
             LoginUserName: loginUserName,
             LoginPassword: loginPassword
-        } ).then( (response) =>
+        },{ withCredentials: true } ).then((response) =>
         {
-            console.log(response.data.message)
+            console.log(response.data[0].id)
             if ( response.data.message )
             {
                 navigateTo( '/' ) // login to same page
                 setLoginStatus('Credentials do not exist!')
             } else
             {
-                navigateTo('/dashboard')
+              
+              navigateTo('/dashboard')
             }
         } );
     } 
