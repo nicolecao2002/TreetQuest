@@ -6,7 +6,6 @@ const app = express()
 const mysql = require( 'mysql' )
 const cors = require( 'cors' )
 const redis = require('ioredis');
-
 const redisStore = require("connect-redis").default;
 
 
@@ -27,7 +26,7 @@ redisClient.on('connect', () => {
 
 app.use( cors( {
   origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'DELETE'],
+  methods: ['GET', 'POST', 'DELETE','PUT'],
   credentials: true
 } ) );
 
@@ -223,4 +222,45 @@ app.delete('/todolistMain/:id', (req, res) => {
     // Task deleted successfully
     res.json({ message: 'Task deleted successfully' });
   });
+} );
+
+app.put( '/todolistMain/:id', ( req, res ) =>
+{
+    console.log('in toggle');
+  const taskId = req.params.id;
+  const { status } = req.body;
+
+  // Check if the task exists before updating the status
+  const SQL_FIND_TASK = 'SELECT * FROM tasks WHERE task_id = ?';
+  db.query(SQL_FIND_TASK, [taskId], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Error toggling task' });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    // If the task exists, update its status
+    const SQL_UPDATE_TASK_STATUS = 'UPDATE tasks SET status = ? WHERE task_id = ?';
+    db.query(SQL_UPDATE_TASK_STATUS, [status, taskId], (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Error toggling task' });
+      }
+
+      // Status updated successfully
+      res.json({ message: 'Task status updated successfully' });
+    });
+  });
 });
+
+
+
+
+
+
+
+
+
