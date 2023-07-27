@@ -1,5 +1,5 @@
 /* Dependencies */
-const sessionPaths = ['/login', '/dashboard'];
+const sessionPaths = ['/login', '/dashboard', '/todolistMain'];
 const session = require('express-session');
 const express = require( 'express' )
 const app = express()
@@ -27,7 +27,7 @@ redisClient.on('connect', () => {
 
 app.use( cors( {
   origin: 'http://localhost:5173',
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'DELETE'],
   credentials: true
 } ) );
 
@@ -64,6 +64,15 @@ const db = mysql.createConnection( {
     database: 'TreetQuest',
    
 } );
+
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connected to the MySQL database!');
+} );
+
 
 // setup a route to the server that will register a user
 app.post( '/register', (req, res) =>
@@ -122,15 +131,15 @@ app.post( '/login', ( req, res ) =>
             req.session.userId = userId;
             console.log( 'Session saved' );
             const sessionId = req.sessionID;
-            console.log( 'Session ID:', sessionId );
-            console.log( 'Retrieved user ID:', userId );
-            console.log( 'Session object in login :', req.session );
-            console.log( 'req.headers =', req.headers );
+            // console.log( 'Session ID:', sessionId );
+            // console.log( 'Retrieved user ID:', userId );
+            // console.log( 'Session object in login :', req.session );
+            // console.log( 'req.headers =', req.headers );
             const cookieName = 'ID';
             res.cookie( cookieName, userId,
                 {
                     // Set other cookie options if needed, e.g., maxAge, secure, httpOnly, etc.
-                    maxAge: 900000, // Cookie expires in 15 minutes (in milliseconds)
+                    maxAge: 9000000, // Cookie expires in 15 minutes (in milliseconds)
                     httpOnly: false,
                     secure: false,
                     sameSite: 'none', // Restrict cookie access to the same site (optional)
@@ -144,24 +153,74 @@ app.post( '/login', ( req, res ) =>
     } )
 })
 
-
-// TODO: 
-app.get( '/dashboard', ( req, res ) =>
-{  
+// get the cookie stored in the browser
+app.get('/dashboard', (req, res) => {
   const sessionId = req.sessionID;
   console.log('Session ID:', sessionId);
-    console.log( 'Session object in dash:', req.session );
-    console.log( 'req.headers =', req.headers );
+  console.log('req.headers =', req.headers);
 
-  if (req.session.userId) {
-    const userId = req.session.userId;
-    res.send({ userId });
-  } else
-  {
-    console.log('pain');
-    res.send({ message: 'User not authenticated' });
+  const userIdCookie = req.headers.cookie
+    ? req.headers.cookie.split(';').find((cookie) => cookie.trim().startsWith('ID='))
+    : null;
+
+  if (userIdCookie) {
+    const userId = userIdCookie.split('=')[1];
+    res.json({ userId });
+  } else {
+    console.log('User not authenticated');
+    res.status(401).json({ message: 'User not authenticated' });
   }
+});
 
+app.post( '/todolistMain', ( req, res ) =>
+{
+  const { task_name, task_level, status, task_creator_id } = req.body;
+  const SQL = 'INSERT INTO tasks (task_name, task_level, status, task_creator_id) VALUES (?, ?, ?, ?)';
+  const values = [task_name, task_level, status, task_creator_id];
+
+  db.query(SQL, values, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Error adding task' });
+    } else {
+      const newTask = { task_id: results.insertId, task_name, task_level, status, task_creator_id };
+      res.json(newTask);
+    }
+  });
 } );
 
-// TODO: manually insert the data into existing users table for old users. 
+
+app.get('/todolistMain', (req, res) => {
+  const userId = req.query.userId; // Get the 'userId' query parameter from the URL
+
+    console.log( 'in app.get ' + userId );
+  if (!userId) {
+    // If 'userId' is not found in the query parameter, return an error response
+    return res.status(401).json({ error: 'User not authenticated' });
+  }
+
+  const SQL = 'SELECT * FROM tasks WHERE task_creator_id = ?'; // Filter tasks based on 'task_creator_id'
+  db.query(SQL, [userId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Error fetching tasks' });
+    } else {
+      res.json(results);
+    }
+  });
+} );
+
+app.delete('/todolistMain/:id', (req, res) => {
+  const taskId = req.params.id;
+  const SQL_DELETE_TASK = 'DELETE FROM tasks WHERE task_id = ?';
+  
+  db.query(SQL_DELETE_TASK, [taskId], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Error deleting task' });
+    }
+
+    // Task deleted successfully
+    res.json({ message: 'Task deleted successfully' });
+  });
+});
