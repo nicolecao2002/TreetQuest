@@ -9,6 +9,11 @@ const redis = require('ioredis');
 const redisStore = require("connect-redis").default;
 
 
+app.use( cors( {
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST', 'DELETE','PUT'],
+  credentials: true
+} ) );
 
 app.use( express.json() )
 
@@ -23,22 +28,15 @@ redisClient.on('connect', () => {
 });
 
 
-
-app.use( cors( {
-  origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'DELETE','PUT'],
-  credentials: true
-} ) );
-
 app.use(sessionPaths,
   session({
     store: new redisStore({ client: redisClient }),
     secret: '1',
     maxAge: 600 * 600 * 10000,
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
-      secure: true, // Set this to 'true' if your server is running on HTTPS
+      secure: false,
       httpOnly: false,
       sameSite: 'none', // Important for cross-site cookies
       maxAge: 10000 * 600 * 600
@@ -130,9 +128,9 @@ app.post( '/login', ( req, res ) =>
             req.session.userId = userId;
             console.log( 'Session saved' );
             const sessionId = req.sessionID;
-            // console.log( 'Session ID:', sessionId );
+            console.log( 'Session ID:', sessionId );
             // console.log( 'Retrieved user ID:', userId );
-            // console.log( 'Session object in login :', req.session );
+            console.log( 'Session object in login :', req.session );
             // console.log( 'req.headers =', req.headers );
             const cookieName = 'ID';
             res.cookie( cookieName, userId,
