@@ -111,86 +111,88 @@ const TodolistMain = () => {
   }
 
   return (
-    <div className="page_container">
-      <div className="form-container">
-        <form onSubmit={handleSubmit} className="new-item-form">
-          <h2>New Task</h2>
-          <div className="form-row">
-            <span>
-              <input value={newTaskName} onChange={(e) => setNewTaskName(e.target.value)} type="text" id="task" />
-            </span>
-          </div>
-          <div className="btnFormContainer">
-            <button
-              className={`levelSbtn ${selectedLevel === 'small' ? 'active-filter' : ''}`}
-              onClick={() => setSelectedLevel('small')}
-            >
-              Small
-            </button>
-            <button
-              className={`levelMbtn ${selectedLevel === 'medium' ? 'active-filter' : ''}`}
-              onClick={() => setSelectedLevel('medium')}
-            >
-              Medium
-            </button>
-            <button
-              className={`levelLbtn ${selectedLevel === 'large' ? 'active-filter' : ''}`}
-              onClick={() => setSelectedLevel('large')}
-            >
-              Large
-            </button>
-          </div>
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
-          <button className="add-btn">Add</button>
-        </form>
-      </div>
-
-      <div className="list-container">
-        
-        {/* Task List */}
-              <h1 className="header">Task List</h1>
-              <div className="filter-buttons">
-                <button
-                    className={filterLevel === 'small' ? 'active-filter' : ''}
-                    onClick={() => filterTasksByLevel('small')}
-                >
+      <div className="page_container">
+          <div className='two_container'>
+            <div className="form-container">
+                <form onSubmit={handleSubmit} className="new-item-form">
+                <h2>New Task</h2>
+                <div className="form-row">
+                    <span>
+                    <input value={newTaskName} onChange={(e) => setNewTaskName(e.target.value)} type="text" id="task" />
+                    </span>
+                </div>
+                <div className="btnFormContainer">
+                    <button type='button'
+                    className={`levelSbtn ${selectedLevel === 'small' ? 'active-filter' : ''}`}
+                    onClick={() => setSelectedLevel('small')}
+                    >
                     Small
-                </button>
-                <button
-                    className={filterLevel === 'medium' ? 'active-filter' : ''}
-                    onClick={() => filterTasksByLevel('medium')}
-                >
+                    </button>
+                    <button type='button'
+                    className={`levelMbtn ${selectedLevel === 'medium' ? 'active-filter' : ''}`}
+                    onClick={() => setSelectedLevel('medium')}
+                    >
                     Medium
-                </button>
-                <button
-                    className={filterLevel === 'large' ? 'active-filter' : ''}
-                    onClick={() => filterTasksByLevel('large')}
-                >
+                    </button>
+                    <button type='button'
+                    className={`levelLbtn ${selectedLevel === 'large' ? 'active-filter' : ''}`}
+                    onClick={() => setSelectedLevel('large')}
+                    >
                     Large
-                </button>
+                    </button>
+                </div>
+                {errorMessage && <div className="error-message">{errorMessage}</div>}
+                <button className="add-btn">Add</button>
+                </form>
+            </div>
+
+            <div className="list-container">
+                
+                {/* Task List */}
+                    <h1 className="header">Task List</h1>
+                    <div className="filter-buttons">
+                        <button
+                            className={filterLevel === 'small' ? 'active-filter' : ''}
+                            onClick={() => filterTasksByLevel('small')}
+                        >
+                            Small
+                        </button>
+                        <button
+                            className={filterLevel === 'medium' ? 'active-filter' : ''}
+                            onClick={() => filterTasksByLevel('medium')}
+                        >
+                            Medium
+                        </button>
+                        <button
+                            className={filterLevel === 'large' ? 'active-filter' : ''}
+                            onClick={() => filterTasksByLevel('large')}
+                        >
+                            Large
+                        </button>
+                </div>
+                <ul className="list">
+                {filteredTasks.length === 0 && <div>No Tasks</div>}
+                {filteredTasks.map((task) => (
+                    <li key={task.task_id}>
+                    <label>
+                        <input
+                        type="checkbox"
+                        checked={task.status === 'completed'}
+                        onChange={() => toggleTask(task.task_id, task.status)}
+                        />
+                        {task.task_name}
+                    </label>
+                    <button onClick={() => deleteTask(task.task_id)} className="delete-btn">
+                        Delete
+                    </button>
+                    </li>
+                ))}
+                </ul>
+                <a href="/dashboard" className="return-link">
+                Return
+                </a>
+            </div>
         </div>
-        <ul className="list">
-          {filteredTasks.length === 0 && <div>No Tasks</div>}
-          {filteredTasks.map((task) => (
-            <li key={task.task_id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={task.status === 'completed'}
-                  onChange={() => toggleTask(task.task_id, task.status)}
-                />
-                {task.task_name}
-              </label>
-              <button onClick={() => deleteTask(task.task_id)} className="delete-btn">
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-        <a href="/dashboard" className="return-link">
-          Return
-        </a>
-      </div>
     </div>
   );
 };

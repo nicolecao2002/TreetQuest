@@ -1,5 +1,5 @@
 /* Dependencies */
-const sessionPaths = ['/login', '/dashboard', '/todolistMain'];
+const sessionPaths = ['/login', '/dashboard', '/todolistMain','/rewardMain'];
 const session = require('express-session');
 const express = require( 'express' )
 const app = express()
@@ -253,6 +253,51 @@ app.put( '/todolistMain/:id', ( req, res ) =>
     });
   });
 });
+
+app.post( '/rewardMain', ( req, res ) =>
+{
+    console.log( "in post " + req.body );
+  const { reward_name, reward_level, reward_creator_id } = req.body;
+  const SQL = 'INSERT INTO reward (reward_name, reward_level, reward_creator_id) VALUES (?, ?, ?)';
+  const values = [reward_name, reward_level, reward_creator_id];
+
+  db.query(SQL, values, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Error adding task' });
+    } else {
+      const newTask = { task_id: results.insertId, reward_name, reward_level, reward_creator_id };
+      res.json(newTask);
+    }
+  });
+} );
+
+app.get('/rewardMain', (req, res) => {
+  const userId = req.query.userId; // Get the 'userId' query parameter from the URL
+
+    console.log( 'in app.get ' + userId );
+  if (!userId) {
+    // If 'userId' is not found in the query parameter, return an error response
+    return res.status(401).json({ error: 'User not authenticated' });
+  }
+
+  const SQL = 'SELECT * FROM reward WHERE reward_creator_id = ?'; // Filter tasks based on 'reward_creater_id'
+  db.query(SQL, [userId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Error fetching tasks' });
+    } else {
+      res.json(results);
+    }
+  });
+} );
+
+
+
+
+
+
+
 
 
 

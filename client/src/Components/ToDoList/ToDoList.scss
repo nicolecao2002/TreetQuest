@@ -10,11 +10,25 @@
 
 }
 
+.two_container {
+  background-color: #198472;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  max-width: 1000px;
+  border-radius: 20px;
+  margin: auto;
+  gap: 20px; /* Add gap space between the two divs */
+  padding: 40px;
+}
+
 .form-container {
   width: 400px;
   padding: 20px;
   margin-bottom: 40px;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: #51ac45;
 }
 
@@ -31,6 +45,15 @@ h2 {
 }
 
 #task {
+  width: 100%; /* Make the input take the full width within its container */
+  height: 40px;
+  background-color: rgb(182, 213, 149);
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 10px; /* Add margin to separate from other elements */
+}
+
+#reward {
   width: 100%; /* Make the input take the full width within its container */
   height: 40px;
   background-color: rgb(182, 213, 149);
@@ -60,7 +83,7 @@ h2 {
   border: 1px solid #ccc;
   padding: 20px;
   margin-bottom: 30px;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: rgb(164, 205, 102);
 }
 
@@ -142,7 +165,7 @@ h2 {
   background-color: purple;
 }
 .levelSbtn:hover, .levelMbtn:hover, .levelLbtn:hover {
-  background-color: rgba(160, 207, 179, 0.604);
+  background-color: rgb(215, 239, 224);
 }
 
 }
@@ -172,6 +195,13 @@ h2 {
   transition: 0.3s ease;
 }
 
+
+
 .filter-buttons button.active-filter {
   background-color: rgba(57, 115, 80, 0.604);
+}
+
+.error-message{
+    color: red;
+    margin: auto;
 }
