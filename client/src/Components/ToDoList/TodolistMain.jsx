@@ -10,6 +10,7 @@ const TodolistMain = () => {
   const [userFetched, setUserFetched] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [filterLevel, setFilterLevel] = useState(null);
 
   useEffect(() => {
     fetchUserId();
@@ -95,6 +96,16 @@ const TodolistMain = () => {
     }
   }
 
+  const filterTasksByLevel = (level) => {
+    if (level === filterLevel) {
+      setFilterLevel(null);
+    } else {
+      setFilterLevel(level);
+    }
+  };
+
+  const filteredTasks = filterLevel ? tasks.filter((task) => task.task_level === filterLevel) : tasks;
+
   if (!userFetched) {
     return <div>Loading...</div>;
   }
@@ -110,13 +121,22 @@ const TodolistMain = () => {
             </span>
           </div>
           <div className="btnFormContainer">
-            <button className="levelSbtn" onClick={() => setSelectedLevel('small')}>
+            <button
+              className={`levelSbtn ${selectedLevel === 'small' ? 'active-filter' : ''}`}
+              onClick={() => setSelectedLevel('small')}
+            >
               Small
             </button>
-            <button className="levelMbtn" onClick={() => setSelectedLevel('medium')}>
+            <button
+              className={`levelMbtn ${selectedLevel === 'medium' ? 'active-filter' : ''}`}
+              onClick={() => setSelectedLevel('medium')}
+            >
               Medium
             </button>
-            <button className="levelLbtn" onClick={() => setSelectedLevel('large')}>
+            <button
+              className={`levelLbtn ${selectedLevel === 'large' ? 'active-filter' : ''}`}
+              onClick={() => setSelectedLevel('large')}
+            >
               Large
             </button>
           </div>
@@ -126,10 +146,32 @@ const TodolistMain = () => {
       </div>
 
       <div className="list-container">
-        <h1 className="header">Task List</h1>
+        
+        {/* Task List */}
+              <h1 className="header">Task List</h1>
+              <div className="filter-buttons">
+                <button
+                    className={filterLevel === 'small' ? 'active-filter' : ''}
+                    onClick={() => filterTasksByLevel('small')}
+                >
+                    Small
+                </button>
+                <button
+                    className={filterLevel === 'medium' ? 'active-filter' : ''}
+                    onClick={() => filterTasksByLevel('medium')}
+                >
+                    Medium
+                </button>
+                <button
+                    className={filterLevel === 'large' ? 'active-filter' : ''}
+                    onClick={() => filterTasksByLevel('large')}
+                >
+                    Large
+                </button>
+        </div>
         <ul className="list">
-          {tasks.length === 0 && <div>No Tasks</div>}
-          {tasks.map((task) => (
+          {filteredTasks.length === 0 && <div>No Tasks</div>}
+          {filteredTasks.map((task) => (
             <li key={task.task_id}>
               <label>
                 <input

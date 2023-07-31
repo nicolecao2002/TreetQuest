@@ -13,7 +13,7 @@
   padding: 20px;
   margin-bottom: 40px;
   border-radius: 10px;
-  background-color: #298e5f;
+  background-color: #51ac45;
 }
 
 h2 {
@@ -136,5 +136,34 @@ h2 {
 }
 .btnFormContainer .levelSbtn:hover, .btnFormContainer .levelMbtn:hover, .btnFormContainer .levelLbtn:hover {
   background-color: rgba(160, 207, 179, 0.604);
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-buttons button {
+  background-color: #298e5f;
+  padding: 8px 16px;
+  color: #b5acac;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 100%;
+  gap: 0.5rem;
+  transition: 0.3s ease;
+}
+
+.filter-buttons button.active-filter {
+  background-color: rgba(57, 115, 80, 0.604);
 }
 /*# sourceMappingURL=ToDoList.css.map */

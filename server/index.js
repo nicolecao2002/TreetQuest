@@ -208,7 +208,7 @@ app.get('/todolistMain', (req, res) => {
 } );
 
 app.delete('/todolistMain/:id', (req, res) => {
-  const taskId = req.params.id;
+  const taskId = req.params.id; // ??
   const SQL_DELETE_TASK = 'DELETE FROM tasks WHERE task_id = ?';
   
   db.query(SQL_DELETE_TASK, [taskId], (err) => {
