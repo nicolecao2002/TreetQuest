@@ -208,10 +208,10 @@ app.get('/todolistMain', (req, res) => {
 } );
 
 app.delete('/todolistMain/:id', (req, res) => {
-  const taskId = req.params.id; // ??
+  const rewardID = req.params.id; // ??
   const SQL_DELETE_TASK = 'DELETE FROM tasks WHERE task_id = ?';
   
-  db.query(SQL_DELETE_TASK, [taskId], (err) => {
+  db.query(SQL_DELETE_TASK, [rewardID], (err) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: 'Error deleting task' });
@@ -225,12 +225,12 @@ app.delete('/todolistMain/:id', (req, res) => {
 app.put( '/todolistMain/:id', ( req, res ) =>
 {
     console.log('in toggle');
-  const taskId = req.params.id;
+  const rewardID = req.params.id;
   const { status } = req.body;
 
   // Check if the task exists before updating the status
   const SQL_FIND_TASK = 'SELECT * FROM tasks WHERE task_id = ?';
-  db.query(SQL_FIND_TASK, [taskId], (err, results) => {
+  db.query(SQL_FIND_TASK, [rewardID], (err, results) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: 'Error toggling task' });
@@ -242,7 +242,7 @@ app.put( '/todolistMain/:id', ( req, res ) =>
 
     // If the task exists, update its status
     const SQL_UPDATE_TASK_STATUS = 'UPDATE tasks SET status = ? WHERE task_id = ?';
-    db.query(SQL_UPDATE_TASK_STATUS, [status, taskId], (err) => {
+    db.query(SQL_UPDATE_TASK_STATUS, [status, rewardID], (err) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ error: 'Error toggling task' });
@@ -292,6 +292,22 @@ app.get('/rewardMain', (req, res) => {
   });
 } );
 
+
+app.delete('/rewardMain/:id', (req, res) => {
+    const rewardID = req.params.id; // ??
+    console.log( "delete" + rewardID );
+  const SQL_DELETE_TASK = 'DELETE FROM reward WHERE reward_id = ?';
+  
+  db.query(SQL_DELETE_TASK, [rewardID], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Error deleting reward' });
+    }
+
+    // Task deleted successfully
+    res.json({ message: 'Reward deleted successfully' });
+  });
+} );
 
 
 

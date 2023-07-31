@@ -81,7 +81,7 @@ const RewardMain = () =>
 
   async function deleteReward(id) {
     try {
-      await axios.delete(`http://localhost:3002/todolistMain/${id}`);
+      await axios.delete(`http://localhost:3002/rewardMain/${id}`);
       setRewards((currentRewards) => currentRewards.filter((reward) => reward.reward_id !== id));
     } catch (error) {
       console.error('Error deleting reward:', error);
