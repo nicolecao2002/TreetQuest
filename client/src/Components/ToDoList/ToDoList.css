@@ -1,0 +1,140 @@
+/* ToDoList.css */
+.page_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh; /* Set the container height to full viewport height */
+  background-color: rgb(58, 148, 102);
+}
+
+.form-container {
+  width: 400px;
+  padding: 20px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  background-color: #298e5f;
+}
+
+h2 {
+  font-size: 1.5em;
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+
+.new-item-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#task {
+  width: 100%; /* Make the input take the full width within its container */
+  height: 40px;
+  background-color: rgb(182, 213, 149);
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 10px; /* Add margin to separate from other elements */
+}
+
+.add-btn {
+  justify-content: center;
+  width: 30%;
+  display: flex;
+  margin: auto;
+  text-align: center;
+  background-color: var(--primaryColor);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.list-container {
+  width: 400px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  background-color: rgb(164, 205, 102);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.return-link {
+  text-decoration: none;
+  color: #007bff;
+  display: block;
+  text-align: center;
+}
+
+.delete-btn {
+  background-color: red;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.delete-btn:hover {
+  background-color: var(--paleRed);
+}
+
+.btnFormContainer {
+  display: flex;
+  gap: 5 px;
+  justify-content: center;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+.btnFormContainer .levelSbtn,
+.btnFormContainer .levelMbtn,
+.btnFormContainer .levelLbtn {
+  padding: 8px 16px;
+  color: #211818;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-right: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 100%;
+  gap: 0.5rem;
+  transition: 0.3s ease;
+}
+.btnFormContainer .levelSbtn {
+  background-color: yellow;
+}
+.btnFormContainer .levelMbtn {
+  background-color: orange;
+}
+.btnFormContainer .levelLbtn {
+  background-color: purple;
+}
+.btnFormContainer .levelSbtn:hover, .btnFormContainer .levelMbtn:hover, .btnFormContainer .levelLbtn:hover {
+  background-color: rgba(160, 207, 179, 0.604);
+}
+/*# sourceMappingURL=ToDoList.css.map */
