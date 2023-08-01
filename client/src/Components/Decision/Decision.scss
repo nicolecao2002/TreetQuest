@@ -1,5 +1,17 @@
+/* Add a new animation rule to rotate the wheel */
+@keyframes rotateWheel {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply the animation to the container when the spinning state is true */
+.container.spin {
+  animation: rotateWheel 5s linear infinite;
+}
+
 .decision {
-   display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -14,7 +26,6 @@
   justify-content: center;
   height: 100vh;
   overflow: hidden;
-  
 }
 
 .container {
@@ -44,39 +55,6 @@
   font-family: sans-serif;
   color: #fff;
   left: 135px;
-}
-
-.container .one {
-  background-color: #3f51b5;
-  left: 50%;
-}
-.container .two {
-  background-color: #ff9800;
-  transform: rotate(45deg);
-}
-.container .three {
-  background-color: #e91e63;
-  transform: rotate(90deg);
-}
-.container .four {
-  background-color: #4caf50;
-  transform: rotate(135deg);
-}
-.container .five {
-  background-color: #009688;
-  transform: rotate(180deg);
-}
-.container .six {
-  background-color: #795548;
-  transform: rotate(225deg);
-}
-.container .seven {
-  background-color: #9c27b0;
-  transform: rotate(270deg);
-}
-.container .eight {
-  background-color: #f44336;
-  transform: rotate(315deg);
 }
 
 .arrow {

@@ -1,31 +1,72 @@
-import React, { useState } from "react";
-import "./Decision.css"; // Import your Decision.css file here
+import "./Decision.css";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const Decision = () => {
-  const [rotation, setRotation] = useState(0);
+  const [spinning, setSpinning] = useState(false);
+  const [result, setResult] = useState("");
+  const [segmentData, setSegmentData] = useState([]);
+
+  useEffect(() => {
+    // Fetch segment data from the backend API
+    const userId = getCookie("ID");
+    axios
+      .get(`http://localhost:3002/decision`, { params: { userId } })
+      .then((response) => {
+        const rewardNames = response.data.map((item) => item.reward_name);
+        setSegmentData(rewardNames);
+      });
+  }, []);
 
   const handleSpin = () => {
-    const randomRotation = Math.ceil(Math.random() * 1000);
-    setRotation((prevRotation) => prevRotation + randomRotation);
+    if (spinning) return;
+
+    setSpinning(true);
+    setTimeout(() => {
+      const randomIndex = Math.floor(Math.random() * segmentData.length);
+      setResult(segmentData[randomIndex]);
+      setSpinning(false);
+    }, 5000);
   };
+
+  const getCookie = (name) => {
+    // Replace with your cookie reading logic
+    const value = "; " + document.cookie;
+    const parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  };
+
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
   return (
     <div className="decision">
-      <div className="decision-wrapper">
+      <h1>Decision Wheel</h1>
+      <div className={`decision-wrapper ${spinning ? "spin" : ""}`}>
+        <div className="container">
+          {segmentData.map((segment, index) => (
+            <div
+              key={index}
+              className={`segment segment-${index + 1}`}
+              style={{
+                backgroundColor: getRandomColor(),
+                transform: `rotate(${(360 / segmentData.length) * index}deg)`,
+              }}
+            >
+              {segment}
+            </div>
+          ))}
+          <div className="arrow"></div>
+        </div>
         <button id="spin" onClick={handleSpin}>
           Spin
         </button>
-        <span className="arrow"></span>
-        <div className="container" style={{ transform: `rotate(${rotation}deg)` }}>
-          <div className="one">1</div>
-          <div className="two">2</div>
-          <div className="three">3</div>
-          <div className="four">4</div>
-          <div className="five">5</div>
-          <div className="six">6</div>
-          <div className="seven">7</div>
-          <div className="eight">8</div>
-        </div>
       </div>
     </div>
   );
