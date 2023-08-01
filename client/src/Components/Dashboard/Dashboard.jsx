@@ -53,7 +53,8 @@ const Dashboard = () =>
             )}
             
             <a href="/todolistMain">ToDO</a>
-           <a href="/rewardMain">Reward</a>
+            <a href="/rewardMain">Reward</a>
+            <a href="/decision">Decision</a>
           <a href="/">Log Out</a>
 
     </div>

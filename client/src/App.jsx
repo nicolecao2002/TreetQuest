@@ -5,6 +5,7 @@ import Register from './Components/Register/Register'
 import Login from './Components/Login/Login'
 import TodolistMain from './Components/ToDoList/TodolistMain'
 import RewardMain from './Components/RewardList/RewardMain'
+import Decision from './Components/Decision/Decision'
 //import Avatar from './Components/Avatar/Avatar'
 
 import {
@@ -38,6 +39,12 @@ const router = createBrowserRouter( [
         path: '/rewardMain',
         element: <div> <RewardMain /></div>
     },
+
+     {
+        path: '/decision',
+        element: <div> <Decision /></div>
+    },
+        
     
 ]);
 

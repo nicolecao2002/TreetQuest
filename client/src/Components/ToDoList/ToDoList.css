@@ -155,7 +155,7 @@ h2 {
   background-color: orange;
 }
 .btnFormContainer .levelLbtn {
-  background-color: purple;
+  background-color: rgb(246, 148, 233);
 }
 .btnFormContainer .levelSbtn:hover, .btnFormContainer .levelMbtn:hover, .btnFormContainer .levelLbtn:hover {
   background-color: rgb(215, 239, 224);
@@ -187,11 +187,10 @@ h2 {
 }
 
 .filter-buttons button.active-filter {
-  background-color: rgba(57, 115, 80, 0.604);
+  background-color: rgba(141, 245, 5, 0.604);
 }
 
 .error-message {
   color: red;
   margin: auto;
-}
-/*# sourceMappingURL=ToDoList.css.map */
+}/*# sourceMappingURL=ToDoList.css.map */
