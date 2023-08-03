@@ -6,7 +6,7 @@
   }
 }
 /* Apply the animation to the container when the spinning state is true */
-.container.spin {
+.spin_container.spin {
   animation: rotateWheel 5s linear infinite;
 }
 
@@ -28,7 +28,7 @@
   overflow: hidden;
 }
 
-.container {
+.spin_container {
   width: 500px;
   height: 500px;
   background-color: #ccc;
@@ -39,7 +39,7 @@
   transition: 5s;
 }
 
-.container div {
+.spin_container div {
   height: 50%;
   width: 200px;
   position: absolute;

@@ -1,3 +1,4 @@
+// Decision.jsx
 import "./Decision.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -49,7 +50,7 @@ const Decision = () => {
     <div className="decision">
       <h1>Decision Wheel</h1>
       <div className={`decision-wrapper ${spinning ? "spin" : ""}`}>
-        <div className="container">
+        <div className={`spin_container ${spinning ? "spin" : ""}`}>
           {segmentData.map((segment, index) => (
             <div
               key={index}
