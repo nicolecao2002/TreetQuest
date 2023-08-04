@@ -332,7 +332,22 @@ app.get('/decision', (req, res) => {
 
 
 
+app.get("/todolistMain", (req, res) => {
+  const userId = req.query.userId; // Assuming the user ID is passed as a query parameter
 
+  // Query the database to get the user's completed tasks
+  const query = "SELECT * FROM tasks WHERE task_creator_id = ? AND status = 'completed'";
+  db.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error("Error fetching user's task data:", err);
+      res.status(500).json({ error: "Error fetching user's task data" });
+      return;
+    }
+
+    // Send the task data back as the response
+    res.json(results);
+  });
+});
 
 
 
