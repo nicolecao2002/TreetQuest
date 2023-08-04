@@ -1,4 +1,3 @@
-// Decision.jsx
 import "./Decision.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -16,18 +15,30 @@ const Decision = () => {
       .then((response) => {
         const rewardNames = response.data.map((item) => item.reward_name);
         setSegmentData(rewardNames);
+      })
+      .catch((error) => {
+        console.error("Error fetching segment data:", error);
       });
   }, []);
 
   const handleSpin = () => {
-    if (spinning) return;
+    if (spinning) return; // Prevent spinning if already spinning
 
     setSpinning(true);
+
+    // Random number of rotations (between 3 and 6)
+    const rotations = 3 + Math.floor(Math.random() * 4);
+
+    // Rotate for the specified number of rotations
+    const totalRotation = 360 * rotations;
+    const randomIndex = Math.floor(Math.random() * segmentData.length);
+    const segmentAngle = 360 / segmentData.length;
+    const resultAngle = totalRotation + (segmentData.length - randomIndex - 1) * segmentAngle;
+
     setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * segmentData.length);
       setResult(segmentData[randomIndex]);
       setSpinning(false);
-    }, 5000);
+    }, 5000 + totalRotation); // Wait for 5000ms + totalRotation before stopping the spinning
   };
 
   const getCookie = (name) => {
@@ -46,6 +57,8 @@ const Decision = () => {
     return color;
   }
 
+  const colors = Array.from({ length: segmentData.length }, () => getRandomColor());
+
   return (
     <div className="decision">
       <h1>Decision Wheel</h1>
@@ -56,19 +69,32 @@ const Decision = () => {
               key={index}
               className={`segment segment-${index + 1}`}
               style={{
-                backgroundColor: getRandomColor(),
+                backgroundColor: colors[index],
                 transform: `rotate(${(360 / segmentData.length) * index}deg)`,
               }}
-            >
-              {segment}
-            </div>
+            ></div>
           ))}
-          <div className="arrow"></div>
         </div>
         <button id="spin" onClick={handleSpin}>
           Spin
         </button>
       </div>
+      <div className="reward-names">
+        <h2 className="reward_title">Potential Reward</h2>
+        {segmentData.map((segment, index) => (
+          <div key={index} className="reward-name" style={{ color: colors[index] }}>
+            {segment}
+          </div>
+        ))}
+      </div>
+      {result && (
+        <div
+          className="result-segment"
+          style={{ color: colors[segmentData.indexOf(result)] }}
+        >
+          Congratulations: {result}
+        </div>
+      )}
     </div>
   );
 };
