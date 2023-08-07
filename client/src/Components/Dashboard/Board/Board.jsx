@@ -15,7 +15,7 @@ const Board = ({ width, height }) => {
   let doodler = {
     img: new Image(),
     x: width / 2 - 46 / 2,
-    y: height * 6/ 7 - 46,
+    y: height * 7 / 8 - 46,
     width: 46,
     height: 46
   };
@@ -26,17 +26,25 @@ const Board = ({ width, height }) => {
   const platformArray = [];
   let score = 0;
   let maxScore = 0;
+  let animationFrameId = null; // Store the requestAnimationFrame ID
 
-    function update ()
-    {
-     if (gameOver) {
-        return;
-     }
-        
+  function update() {
+    if (gameOver) {
+      stopAnimation(); // Stop animation when the game is over
+      return;
+    }
+      
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
     context.clearRect(0, 0, width, height);
+
+    // Wrap the doodler's x position around the canvas
+    if (doodler.x > width) {
+      doodler.x = -doodler.width;
+    } else if (doodler.x + doodler.width < 0) {
+      doodler.x = width;
+    }
 
     // Draw doodler
     context.drawImage(doodler.img, doodler.x, doodler.y, doodler.width, doodler.height);
@@ -81,21 +89,15 @@ const Board = ({ width, height }) => {
     }
 
     // Check for game over condition
-        if ( doodler.y > height )
-        {
-    
-            gameOver = true;
-              console.log( gameOver);
+    if (doodler.y > height) {
+      gameOver = true;
     }
 
     // Request animation frame to continue the loop
-    
-    if (!gameOver) {
-      requestAnimationFrame(update);
-    }
-         // Draw game over text
-        if ( gameOver )
-        {
+    animationFrameId = requestAnimationFrame(update);
+
+    // Draw game over text
+    if (gameOver) {
       context.fillText('Game Over: Press "Space" to Restart', width / 7, height * 7 / 8);
     }
   }
@@ -111,18 +113,19 @@ const Board = ({ width, height }) => {
 
     platformImage.onload = () => {
       placePlatforms();
-      requestAnimationFrame(update);
+      animationFrameId = requestAnimationFrame(update);
     };
 
     document.addEventListener('keydown', moveDoodler);
 
-    // Make sure to remove the event listener when the component is unmounted
+    // Make sure to remove the event listener and stop animation when the component is unmounted
     return () => {
       document.removeEventListener('keydown', moveDoodler);
+      stopAnimation();
     };
   }, []);
 
-  const moveDoodler = (e) => {
+  function moveDoodler(e) {
     // Move the doodler based on the keyboard input
     if (e.code === 'ArrowRight' || e.code === 'KeyD') {
       velocityX = 4;
@@ -133,18 +136,18 @@ const Board = ({ width, height }) => {
     }
 
     // Handle game restart on space key
-      if ( e.code === 'Space' && gameOver )
-      {
-        doodler.x = width / 2 - 46 / 2; // Reset the x position to its initial value
-        score = 0;
-        velocityX = 0;
+    if (e.code === 'Space' && gameOver) {
+      velocityX = 0;
         velocityY = -8;
-        maxScore = 0;
-        gameOver = false;
-        placePlatforms();
-        requestAnimationFrame(update);
+         doodler.x = width / 2 - 46 / 2,
+    doodler.y = height * 7 / 8 - 46,
+      score = 0;
+      maxScore = 0;
+      gameOver = false;
+      placePlatforms();
+      requestAnimationFrame(update);
     }
-  };
+  }
 
   const placePlatforms = () => {
     platformArray.length = 0; // Clear the array
@@ -172,16 +175,16 @@ const Board = ({ width, height }) => {
     }
   };
 
-  function newPlatform() {
-    let randomX = Math.floor(Math.random() * (width * 3 / 4)); // Random X position for the new platform
-    const platform = {
-      img: platformImage,
-      x: randomX,
-      y: -platformHeight, // The new platform starts above the canvas (outside)
-      width: platformWidth,
-      height: platformHeight
-    };
-    platformArray.push(platform); // Add the new platform to the platformArray
+  function updateScore() {
+    let points = Math.floor(50 * Math.random());
+    if (velocityY < 0) {
+      maxScore += points;
+      if (score < maxScore) {
+        score = maxScore;
+      }
+    } else if (velocityY >= 0) {
+      maxScore -= points;
+    }
   }
 
   function detectCollision(a, b) {
@@ -193,15 +196,22 @@ const Board = ({ width, height }) => {
     );
   }
 
-  function updateScore() {
-    let points = Math.floor(50 * Math.random());
-    if (velocityY < 0) {
-      maxScore += points;
-      if (score < maxScore) {
-        score = maxScore;
-      }
-    } else if (velocityY >= 0) {
-      maxScore -= points;
+  function newPlatform() {
+    let randomX = Math.floor(Math.random() * (width * 3 / 4));
+    const platform = {
+      img: platformImage,
+      x: randomX,
+      y: -platformHeight,
+      width: platformWidth,
+      height: platformHeight
+    };
+    platformArray.push(platform);
+  }
+
+  function stopAnimation() {
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
     }
   }
 
