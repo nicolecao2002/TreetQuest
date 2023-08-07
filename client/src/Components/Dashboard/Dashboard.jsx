@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import Axios from 'axios'
-
+import Board from './Board/Board.jsx'; // Add this import statement
 const Dashboard = () =>
 {
 
@@ -44,21 +44,20 @@ const Dashboard = () =>
   };
     
     return (
-        <div>
-          
-            This is Dashboard page!
-             <h1>User Profile</h1>
-                {error ? ( <p>Error fetching user profile.</p>) : (
-                userId && <p>User ID: {userId}</p>
-            )}
-            
-            <a href="/todolistMain">ToDO</a>
-            <a href="/rewardMain">Reward</a>
-            <a href="/decision">Decision</a>
-          <a href="/">Log Out</a>
+    <div>
+      {/* Your existing content */}
+      <h1>User Profile</h1>
+      {error ? <p>Error fetching user profile.</p> : userId && <p>User ID: {userId}</p>}
 
+      <a href="/todolistMain">ToDO</a>
+      <a href="/rewardMain">Reward</a>
+      <a href="/decision">Decision</a>
+      <a href="/">Log Out</a>
+
+      {/* Use the Board component here */}
+      <Board width={360} height={576} />
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
