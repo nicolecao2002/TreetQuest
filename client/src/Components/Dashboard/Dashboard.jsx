@@ -55,7 +55,7 @@ const Dashboard = () =>
       <a href="/">Log Out</a>
 
       {/* Use the Board component here */}
-      <Board width={360} height={576} />
+      <Board width={460} height={576} />
     </div>
   );
 };

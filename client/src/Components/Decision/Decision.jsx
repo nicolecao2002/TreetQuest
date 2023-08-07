@@ -29,6 +29,10 @@ const Decision = () => {
         // Filter the data to only include "small" reward-level segments initially
         const initialSegments = rewardData.filter((segment) => segment.reward_level === "small");
         setDisplayedSegments(initialSegments);
+
+        // Generate the random colors once when the component mounts
+        const generatedColors = Array.from({ length: rewardData.length }, () => getRandomColor());
+        setRandomColors(generatedColors);
       })
       .catch((error) => {
         console.error("Error fetching segment data:", error);
@@ -54,23 +58,7 @@ const Decision = () => {
       .catch((error) => {
         console.error("Error fetching user's task data:", error);
       });
-
-    // Generate the random colors once when the component mounts
-    const generatedColors = Array.from({ length: displayedSegments.length }, () => getRandomColor());
-    setRandomColors(generatedColors);
-  }, [displayedSegments.length]);
-
-  // Add a useEffect hook to update displayedSegments whenever selectedSize changes
-  useEffect(() => {
-    const filteredSegments = segmentData.filter((segment) => segment.reward_level === selectedSize);
-    setDisplayedSegments(filteredSegments);
-  }, [segmentData, selectedSize]);
-
-  // Add another useEffect hook to update the reward names whenever displayedSegments or selectedSize changes
-  useEffect(() => {
-    const generatedColors = Array.from({ length: displayedSegments.length }, () => getRandomColor());
-    setRandomColors(generatedColors);
-  }, [displayedSegments, selectedSize]);
+  }, []);
 
   const handleSpin = () => {
     if (spinning) return; // Prevent spinning if already spinning
@@ -96,6 +84,8 @@ const Decision = () => {
 
   const handleSizeSelection = (size) => {
     setSelectedSize(size);
+    const filteredSegments = segmentData.filter((segment) => segment.reward_level === size);
+    setDisplayedSegments(filteredSegments);
   };
 
   const getCookie = (name) => {
