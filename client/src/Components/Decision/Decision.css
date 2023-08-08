@@ -1,9 +1,4 @@
 /* Add a new animation rule to rotate the wheel */
-@-webkit-keyframes rotateWheel {
-  100% {
-    transform: rotate(360deg);
-  }
-}
 @keyframes rotateWheel {
   100% {
     transform: rotate(360deg);
@@ -75,8 +70,7 @@
 
 /* Apply the animation to the container when the spinning class is applied */
 .spin_container.spin {
-  -webkit-animation: rotateWheel 3s linear infinite;
-          animation: rotateWheel 3s linear infinite;
+  animation: rotateWheel 3s linear infinite;
 }
 
 /* Adjust the position and style of the segments */
@@ -159,5 +153,4 @@
   color: #007bff;
   display: block;
   text-align: center;
-}
-/*# sourceMappingURL=Decision.css.map */
+}/*# sourceMappingURL=Decision.css.map */

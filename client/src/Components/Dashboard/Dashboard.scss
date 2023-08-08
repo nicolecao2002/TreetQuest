@@ -1,0 +1,133 @@
+
+
+.dashboard{
+  background-image: url('./dashboard_background.png');
+  background-size: cover; /* Image will cover the entire container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 100vh; /* Set the container height to full viewport height */
+  background-color: rgb(58, 148, 102);
+
+}
+.dashboard_container{
+  height: 600px;
+  width: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items:flex-start;
+  flex-direction: row;
+  background-color: rgb(9, 83, 45);
+  border-radius: 20px;
+
+}
+
+.left_container{
+    margin-left: -450px;
+    height: 600px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(11, 75, 52);
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    gap: 50px;
+    
+}
+
+.link_container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    h3{
+        margin-left: auto; /* Align background to center */
+        margin-right: auto; /* Align background to center */
+        margin-top: 20px;
+        display: flex;
+        height: 70px;
+        width: 70px;
+       
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: aquamarine;
+        background-color: rgba(12, 183, 169, 0.567);
+        border-radius: 50px;
+    }
+        a[href="/todolistMain"] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: left;
+        height: 80px;
+        width: 80px;
+        padding-top: 10px;
+        background-image: url('./link_img.png');
+        background-size: cover;
+        /* Add other styling as needed */
+        }
+
+        a[href="/todolistMain"] span {
+        margin-top: 50px; /* Add some spacing between image and text */
+        }
+
+        a[href="/rewardMain"] {
+         padding-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 80px;
+        width: 80px;
+        background-image: url('./link_img.png');
+        background-size: cover;
+        /* Add other styling as needed */
+        }
+
+        a[href="/rewardMain"] span {
+        margin-top: 50px; /* Add some spacing between image and text */
+        }
+
+        a[href="/decision"] {
+         padding-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 80px;
+        width: 80px;
+        background-image: url('./link_img.png');
+        background-size: cover;
+        /* Add other styling as needed */
+        }
+}
+
+.logout_container {
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(45, 230, 168, 0.654);
+    height: 35px;
+    width: 80%;
+    border-radius: 20px;
+    margin-bottom: 40px;
+
+    a {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 10px;
+}
+}
+
+.icon {
+    width: 30px; /* Increase the width */
+    height: 30px; /* Keep the height the same */
+    margin-left: -10px; /* Adjust the margin as needed */
+    color: yellow;
+}
+

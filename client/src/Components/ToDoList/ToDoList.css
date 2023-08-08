@@ -82,6 +82,26 @@ h2 {
   margin-bottom: 30px;
   border-radius: 20px;
   background-color: rgb(164, 205, 102);
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
+/* Styling for the scrollbar */
+.list-container::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.list-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the track */
+}
+
+.list-container::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the thumb */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.list-container::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the thumb on hover */
 }
 
 .header {

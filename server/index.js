@@ -122,18 +122,14 @@ app.post( '/login', ( req, res ) =>
             res.send( { error: err } )
         } if ( results.length > 0 )
         {
-           const userId = results[0].id;
-        
+            const userId = results[ 0 ].id;
+            const name = results[ 0].username;
+            console.log(results);
       // Store the user ID in the session, TODO
             req.session.userId = userId;
-            console.log( 'Session saved' );
-            const sessionId = req.sessionID;
-            console.log( 'Session ID:', sessionId );
-            // console.log( 'Retrieved user ID:', userId );
-            console.log( 'Session object in login :', req.session );
-            // console.log( 'req.headers =', req.headers );
+            req.session.name = name;
             const cookieName = 'ID';
-            res.cookie( cookieName, userId,
+            res.cookie( cookieName, userId, name,
                 {
                     // Set other cookie options if needed, e.g., maxAge, secure, httpOnly, etc.
                     maxAge: 9000000, // Cookie expires in 15 minutes (in milliseconds)
@@ -141,7 +137,13 @@ app.post( '/login', ( req, res ) =>
                     secure: false,
                     sameSite: 'none', // Restrict cookie access to the same site (optional)
                 } );
-            //console.log( res);
+            const cookieNameForName = 'NAME';
+                res.cookie(cookieNameForName, name, {
+                    maxAge: 9000000,
+                    httpOnly: false,
+                    secure: false,
+                    sameSite: 'none',
+            });
             res.send( results );
         } else
         {

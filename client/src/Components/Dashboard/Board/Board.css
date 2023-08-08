@@ -1,7 +1,8 @@
-body {
-    text-align: center;
-}
+
 
 .board {
-    background-image: url("./doodlejumpbg.png");
+    align-items: center;
+    justify-self: center;
+    background-image: url("./Background.png");
+    
 }

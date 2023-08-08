@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Board.css';
-import doodlerRightImg from './doodler-right.png';
-import doodlerLeftImg from './doodler-left.png';
+import doodlerRightImg from './doodler_right.png';
+import doodlerLeftImg from './doodler_left.png';
 import platformImg from './platform.png';
 
 const Board = ({ width, height }) => {
@@ -16,8 +16,8 @@ const Board = ({ width, height }) => {
     img: new Image(),
     x: width / 2 - 46 / 2,
     y: height * 7 / 8 - 46,
-    width: 46,
-    height: 46
+    width: 80,
+    height: 80
   };
 
   const platformImage = new Image();
@@ -137,15 +137,15 @@ const Board = ({ width, height }) => {
 
     // Handle game restart on space key
     if (e.code === 'Space' && gameOver) {
-      velocityX = 0;
+        velocityX = 0;
         velocityY = -8;
-         doodler.x = width / 2 - 46 / 2,
-    doodler.y = height * 7 / 8 - 46,
-      score = 0;
-      maxScore = 0;
-      gameOver = false;
-      placePlatforms();
-      requestAnimationFrame(update);
+        doodler.x = width / 2 - 46 / 2,
+        doodler.y = height * 7 / 8 - 46,
+        score = 0;
+        maxScore = 0;
+        gameOver = false;
+        placePlatforms();
+        requestAnimationFrame(update);
     }
   }
 
@@ -162,12 +162,12 @@ const Board = ({ width, height }) => {
     });
 
     // Add additional random platforms
-    for (let i = 0; i < 6; i++) {
-      let randomX = Math.floor(Math.random() * (width * 3 / 4));
+    for (let i = 0; i < 10; i++) {
+      let randomX = Math.floor(Math.random() * (width) * 9/10);
       const platform = {
         img: platformImage,
         x: randomX,
-        y: height - 75 * i - 150,
+        y: height - 50 * i - 150,
         width: platformWidth,
         height: platformHeight
       };
