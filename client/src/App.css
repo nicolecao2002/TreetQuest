@@ -341,10 +341,9 @@ img, video {
 .todolistCon .new-item-form input:focus {
   border: 1px solid hsl(200deg, 100%, 70%);
 }
-.todolistCon .header {
+.todolistCon .dash_header {
   font-size: 1.5rem;
   margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
 }
 .todolistCon .list {
   margin: 0;

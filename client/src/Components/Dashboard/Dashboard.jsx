@@ -9,6 +9,11 @@ const Dashboard = () =>
     const [userId, setUserId] = useState(null);
     const [ error, setError ] = useState( false );
     const [ userName, setUserName ] = useState( null );
+     const [taskCount, setTaskCount] = useState({
+    small: 0,
+    medium: 0,
+    large: 0,
+  });
    
     useEffect( () =>
     {
@@ -28,9 +33,27 @@ const Dashboard = () =>
             .catch(error => {
             console.error('Error fetching user profile:', error);
             setError(true);
+            } );
+         
+}, []);
+    useEffect(() => {
+    if (userId) {
+        Axios.get(`http://localhost:3002/todolistMain?userId=${userId}`)
+            .then(response => {
+                const userTasks = response.data;
+                const taskCountByLevel = userTasks.reduce((countByLevel, task) => {
+                    if (task.status === "todo") {
+                        countByLevel[task.task_level] = (countByLevel[task.task_level] || 0) + 1;
+                    }
+                    return countByLevel;
+                }, {});
+                setTaskCount(taskCountByLevel);
+            })
+            .catch(error => {
+                console.error("Error fetching user's task data:", error);
             });
-    }, []);
-    
+    }
+}, [userId]);
 
     // Function to get the value of a specific cookie by its name
   const getCookieValue = (name) => {
@@ -49,7 +72,7 @@ const Dashboard = () =>
     
     return (
         <div>
-            <div className='header'>
+            <div className='dash_header'>
                 {error ? <p>Error fetching user profile.</p> : (
                     <div>
                     <h1> Welcome {userName} </h1>
@@ -71,8 +94,22 @@ const Dashboard = () =>
                             <a href="/">Log Out</a>
                             </div>
                     </div>
-                        <Board width={450} height={600} />
+                    <Board width={ 450 } height={ 600 } />
+                    <div className='right_container'>
+                        <div className='status_container'>
+                             <h3>Task Status</h3>
+                        <p>Small Tasks Remaining: {taskCount.small ?? 0}</p>
+                        <p>Medium Tasks Remaining: {taskCount.medium ?? 0}</p>
+                        <p>Large Tasks Remaining: {taskCount.large ?? 0}</p>
+                        </div>
+                        <div className='instrution_container'>       
+                        <p>Hihihih ehjfewkljlkfjmwlnv wlcwekdmm lkdmnwqlkdmnmslkq jldjslkjld fvjlkfflsdkfl dlskfldks kdjflskf lkjf fkfls fjdlkfj l flkfjlk jlfk kfslk jflk js fdlkf jlkfj klfj ls jkl ls jkdl</p>
+                        
                     </div>
+                    </div>
+
+                </div>
+                
             </div>
             
         </div>
