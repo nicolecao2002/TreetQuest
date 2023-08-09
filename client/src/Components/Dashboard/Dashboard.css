@@ -5,7 +5,7 @@
 
 .dashboard {
   border: none;
-  background-image: url("./dashboard_background_with_lower_opacity.png"); /* Use the modified image */
+  background-image: url("./dashboard_background_with_lower_opacity.png");
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -139,7 +139,7 @@
 
 .status_container {
   background-color: rgb(46, 133, 82);
-  border-radius: 0 20px 0 0px;
+  border-radius: 0 20px 0 0;
   width: 100%;
   height: 300px;
   display: flex;

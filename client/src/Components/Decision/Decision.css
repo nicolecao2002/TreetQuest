@@ -23,7 +23,7 @@
 .spin_container {
   width: 500px;
   height: 500px;
-  background-color: #000000;
+  background-color: #ffffff;
   border-radius: 50%;
   border: 15px solid #dde;
   position: relative;
@@ -101,8 +101,8 @@
 
 #spin {
   position: absolute;
-  top: 50%;
-  left: 49.75%;
+  margin-top: 75px;
+  margin-left: 80px;
   transform: translate(-50%, -50%);
   z-index: 10;
   background-color: #79dd7e;
@@ -120,9 +120,13 @@
   letter-spacing: 1px;
 }
 
-.decision-wrapper {
-  /* Add margin-right to create space between the decision-wrapper and reward-names */
-  margin-right: 20px;
+.spin_sec {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 20px; /* Adjust as needed */
 }
 
 .reward-names {

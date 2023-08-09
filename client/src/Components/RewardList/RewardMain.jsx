@@ -136,7 +136,18 @@ const RewardMain = () =>
                 </div>
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
                 <button className="add-btn">Add</button>
-                </form>
+                 </form>
+                 <div className='instruction_con_form'>
+                        <h4>How to Navigate To-Do List:</h4>
+                        <ul>
+                         <li>⌨️ Type the reward in the input box</li>
+                         <li>🎁 Choose a reward's level based on the effort required. The rewards created later will have the same level until you choose a different level. </li>
+                         <li>➡️ On the right, click the buttons to sort the reward, if you click twice the same button, it will show all rewards.</li>
+                         <li>❌ If a reward is no longer needed, just hit the delete button.</li>
+                           <li>🔙 Click the link under the Task list to return to the dashboard.</li>
+                        </ul>
+                       
+                    </div> 
             </div>
 
             <div className="list-container">

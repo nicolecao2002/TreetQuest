@@ -135,22 +135,26 @@ const Decision = () => {
         <p>Medium Tasks Completed: {taskCompletionCount.medium ?? 0}</p>
         <p>Large Tasks Completed: {taskCompletionCount.large ?? 0}</p>
       </div>
-      <div className={`decision-wrapper ${spinning ? "spin" : ""}`}>
-        <div className={`spin_container ${spinning ? "spin" : ""}`}>
-          {displayedSegments.map((segment, index) => (
-            <div
-              key={index}
-              className={`segment segment-${index + 1}`}
-              style={{
-                backgroundColor: randomColors[index], // Use the stored random color here
-                transform: `rotate(${(360 / displayedSegments.length) * index}deg)`,
-              }}
-            ></div>
-          ))}
+        <div className={ `decision-wrapper ${ spinning ? "spin" : "" }` }>
+             
+            <div className="spin_sec">
+              <button id="spin" onClick={ handleSpin }>
+            Spin
+            </button> 
+            <div className={`spin_container ${spinning ? "spin" : ""}`}>
+            {displayedSegments.map((segment, index) => (
+                <div
+                key={index}
+                className={`segment segment-${index + 1}`}
+                style={{
+                    backgroundColor: randomColors[index], // Use the stored random color here
+                    transform: `rotate(${(360 / displayedSegments.length) * index}deg)`,
+                } }
+                ></div>
+            ) ) }
+        
         </div>
-        <button id="spin" onClick={handleSpin}>
-          Spin
-        </button>
+    </div>
       </div>
       <div className="reward-names">
         <h2 className="reward_title">Potential Reward</h2>

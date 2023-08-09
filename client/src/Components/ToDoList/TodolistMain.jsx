@@ -10,7 +10,8 @@ const TodolistMain = () => {
   const [userFetched, setUserFetched] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [filterLevel, setFilterLevel] = useState(null);
+  const [ filterLevel, setFilterLevel ] = useState( null );
+  const [taskLevelMessage, setTaskLevelMessage] = useState(''); 
 
   useEffect(() => {
     fetchUserId();
@@ -109,11 +110,13 @@ const TodolistMain = () => {
   if (!userFetched) {
     return <div>Loading...</div>;
   }
+ 
 
   return (
       <div className="page_container">
           <div className='two_container'>
-            <div className="form-container">
+              <div className="form-container">
+                 
                 <form onSubmit={handleSubmit} className="new-item-form">
                 <h2>New Task</h2>
                 <div className="form-row">
@@ -122,28 +125,47 @@ const TodolistMain = () => {
                     </span>
                 </div>
                 <div className="btnFormContainer">
-                    <button type='button'
-                    className={`levelSbtn ${selectedLevel === 'small' ? 'active-filter' : ''}`}
-                    onClick={() => setSelectedLevel('small')}
-                    >
-                    Small
-                    </button>
-                    <button type='button'
-                    className={`levelMbtn ${selectedLevel === 'medium' ? 'active-filter' : ''}`}
-                    onClick={() => setSelectedLevel('medium')}
-                    >
-                    Medium
-                    </button>
-                    <button type='button'
-                    className={`levelLbtn ${selectedLevel === 'large' ? 'active-filter' : ''}`}
-                    onClick={() => setSelectedLevel('large')}
-                    >
-                    Large
-                    </button>
+                    <button
+                    type="button"
+                        className={`levelSbtn ${selectedLevel === 'small' ? 'active-filter' : ''}`}
+                        onClick={() => setSelectedLevel('small')}
+                        >
+                        Small
+                        </button>
+                        <button
+                        type="button"
+                        className={`levelMbtn ${selectedLevel === 'medium' ? 'active-filter' : ''}`}
+                        onClick={() => setSelectedLevel('medium')}
+                        >
+                        Medium
+                        </button>
+                        <button
+                        type="button"
+                        className={`levelLbtn ${selectedLevel === 'large' ? 'active-filter' : ''}`}
+                        onClick={() => setSelectedLevel('large')}
+                        >
+                        Large
+                          </button>
+                          
+                      </div>
+                       <div className="selected_level">
+                    {selectedLevel ? `Selected Level: ${selectedLevel}` : ''}
                 </div>
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
-                <button className="add-btn">Add</button>
-                </form>
+                      <button className="add-btn">Add</button>
+                 </form>
+                  <div className='instruction_con_form'>
+                        <h4>How to Navigate To-Do List:</h4>
+                        <ul>
+                        <li>⌨️ Type the task in the input box</li>
+                          <li>📚 Choose the task's level based on the effort required. The tasks created later will have the same level until you choose a different level. </li>
+                           <li>➡️ On the right, click the buttons to sort the tasks, if you click twice the same button, it will show all tasks.</li>
+                         <li>✅ When you complete the task, click the check box.</li>
+                         <li>❌ If a task is no longer needed, just hit the delete button.</li>
+                           <li>🔙 Click the link under the Task list to return to the dashboard.</li>
+                        </ul>
+                       
+                    </div> 
             </div>
 
             <div className="list-container">
