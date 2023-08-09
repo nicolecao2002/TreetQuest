@@ -1,5 +1,5 @@
 import './Register.css'
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import '../../App.css'
 import video from '../../LoginAssets/video.mp4'
 import logo from '../../LoginAssets/logo.png'
@@ -15,21 +15,41 @@ const Register = () =>
     const [ email, setEmail ] = useState( '' )
     const [ userName, setUserName ] = useState( '' ) // watchout for user
     const [ password, setPassword ] = useState( '' )
+    const [ registerStatus, setregisterStatus ] = useState( '' )
+    const [ statusHolder, setStatusHolder ] = useState( 'message' )
     
-    const createUser = () =>
+    
+    const createUser = () => {
+    Axios.post('http://localhost:3002/register', {
+        Email: email,
+        UserName: userName,
+        Password: password
+    }, { withCredentials: true })
+    .then((response) => {
+        if (response.data.message) {
+            setregisterStatus('Registration succeeded, please go back to the login page.');
+        }
+    })
+    .catch(error => {
+        if (error.response && error.response.data.message === 'Username already taken') {
+            setregisterStatus('Username already taken. Please choose another username.');
+        } else {
+            setregisterStatus('An error occurred. Please try again later.');
+        }
+    });
+};
+     useEffect( () =>
     {
-        //require axios to create an API that connects to the server
-        console.log( "hi" );
-        Axios.post('http://localhost:3002/register', {
-            //create variable to send to the server
-            Email: email,
-            UserName: userName,
-            Password: password
-        },  {withCredentials: true}).then( () =>
+        if ( registerStatus !== '' )
         {
-            console.log( 'User has been created.' )
-        } );
-    }
+            setStatusHolder( 'showMessage' )
+            setTimeout( () =>
+            {
+                setStatusHolder( 'message' ) //hide after
+            }, 4000);
+        }
+        
+     }, [ registerStatus ] )
     
     return (
         <div className='registerPage flex'>
@@ -55,7 +75,7 @@ const Register = () =>
                   </div>
                   
                   <form action="" className='form gird'>
-                    
+                    <span className={ statusHolder }>{ registerStatus }</span>
                     <div className="inputDiv">
                         <label htmlFor='email'>Email</label>
                         <div className="input flex">
@@ -84,8 +104,6 @@ const Register = () =>
                         <span>Register</span>
                         <AiOutlineSwapRight className='icon'/>           
                     </button>
-                      {/* <span className='forgotPassword'>Forgot Password? <a href="">Click Here</a>
-                      </span> */}
                   </form>
               </div>
         </div>     

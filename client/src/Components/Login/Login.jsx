@@ -27,9 +27,9 @@ const [ statusHolder, setStatusHolder ] = useState( 'message' )
             LoginPassword: loginPassword
         },{ withCredentials: true } ).then((response) =>
         {
-            console.log(response.data[0].id)
             if ( response.data.message )
             {
+                console.log("should be here")
                 navigateTo( '/' ) // login to same page
                 setLoginStatus('Credentials do not exist!')
             } else
@@ -47,7 +47,7 @@ const [ statusHolder, setStatusHolder ] = useState( 'message' )
             setTimeout( () =>
             {
                 setStatusHolder( 'message' ) //hide after
-            }, 4000);
+            }, 40000);
         }
         
     },[loginStatus])
@@ -99,8 +99,7 @@ return (
                         <span>Login</span>
                         <AiOutlineSwapRight className='icon'/>           
                     </button>
-                      <span className='forgotPassword'>Forgot Password? <a href="">Click Here</a>
-                      </span>
+
                   </form>
               </div>
         </div>     

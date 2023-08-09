@@ -5,14 +5,14 @@
 
 .dashboard {
   border: none;
-  background-image: url("./dashboard_background.png");
-  background-size: cover; /* Image will cover the entire container */
+  background-image: url("./dashboard_background_with_lower_opacity.png"); /* Use the modified image */
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  height: 100vh; /* Set the container height to full viewport height */
-  background-color: rgb(58, 148, 102);
+  height: 100vh;
+  background-color: rgba(107, 154, 130, 0.7); /* Set a lower opacity for the background color */
 }
 
 .dashboard_container {
@@ -55,7 +55,6 @@
   justify-content: center;
   text-align: center;
   color: aquamarine;
-  background-color: rgba(12, 183, 169, 0.567);
   border-radius: 50px;
 }
 .link_container a[href="/todolistMain"] {
@@ -119,7 +118,7 @@
   font-size: 10px;
 }
 
-.icon {
+.dash_icon {
   width: 30px; /* Increase the width */
   height: 30px; /* Keep the height the same */
   margin-left: -10px; /* Adjust the margin as needed */
@@ -139,7 +138,8 @@
 }
 
 .status_container {
-  border-radius: 20px;
+  background-color: rgb(46, 133, 82);
+  border-radius: 0 20px 0 0px;
   width: 100%;
   height: 300px;
   display: flex;
@@ -147,34 +147,53 @@
   gap: 30px;
   margin-bottom: 30px;
   padding-bottom: 20px; /* Adjust the value as needed */
-  background-color: rgb(137, 235, 178);
 }
 .status_container h3 {
   margin: auto;
   display: flex;
-  height: 100px;
-  width: 100px;
+  margin-top: 20px;
+  height: 70px;
+  width: 70px;
+  gap: 20px;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: rgb(14, 64, 47);
-  background-color: rgba(151, 171, 162, 0.567);
+  color: rgb(7, 64, 45);
+  background-color: rgba(23, 87, 58, 0.567);
   border-radius: 50px;
 }
 .status_container p {
-  color: rgb(33, 91, 71);
-  align-items: left;
+  gap: 5px;
+  color: aquamarine;
+  justify-content: center;
+  align-items: center;
   text-align: left;
-  gap: 10px;
-  padding-left: 30px;
+  padding-left: 80px;
 }
 
 .instruction_container {
-  display: flex;
-  width: 100%;
-  background-color: rgb(134, 64, 64);
-  flex-direction: column;
+  display: block;
+  padding: 10px;
+  gap: 10px;
+  width: 80%;
+  background-color: rgb(124, 203, 180);
+  justify-self: center;
   align-items: center;
-  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 100px;
+  text-align: left; /* Add this line to center-align the paragraph */
+  color: rgb(6, 53, 31);
+}
+.instruction_container li {
+  font-size: 12px;
+}
+.instruction_container h4 {
+  gap: 5px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.instruction_container p {
+  margin-top: 10px;
+  font-size: 12px;
 }
 /*# sourceMappingURL=Dashboard.css.map */

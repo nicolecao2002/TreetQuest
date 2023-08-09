@@ -1,4 +1,9 @@
 /* Add a new animation rule to rotate the wheel */
+@-webkit-keyframes rotateWheel {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @keyframes rotateWheel {
   100% {
     transform: rotate(360deg);
@@ -18,7 +23,7 @@
 .spin_container {
   width: 500px;
   height: 500px;
-  background-color: #9bc2ad;
+  background-color: #000000;
   border-radius: 50%;
   border: 15px solid #dde;
   position: relative;
@@ -70,7 +75,8 @@
 
 /* Apply the animation to the container when the spinning class is applied */
 .spin_container.spin {
-  animation: rotateWheel 3s linear infinite;
+  -webkit-animation: rotateWheel 3s linear infinite;
+          animation: rotateWheel 3s linear infinite;
 }
 
 /* Adjust the position and style of the segments */
@@ -96,7 +102,7 @@
 #spin {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 49.75%;
   transform: translate(-50%, -50%);
   z-index: 10;
   background-color: #79dd7e;
@@ -153,4 +159,5 @@
   color: #007bff;
   display: block;
   text-align: center;
-}/*# sourceMappingURL=Decision.css.map */
+}
+/*# sourceMappingURL=Decision.css.map */

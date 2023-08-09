@@ -121,7 +121,9 @@ const Decision = () => {
         {!spinning && result && (
           <div
             className={`result-segment ${result.reward_level !== selectedSize ? "hidden" : ""}`}
-            style={{ color: randomColors[displayedSegments.indexOf(result)] }}
+                      style={ {
+                          color: randomColors[ displayedSegments.indexOf( result ) ]
+                      } }
           >
             Congratulations: {result.reward_name}
           </div>

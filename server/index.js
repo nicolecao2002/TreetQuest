@@ -72,35 +72,39 @@ db.connect((err) => {
 
 
 // setup a route to the server that will register a user
-app.post( '/register', (req, res) =>
-{
-    //variable
-    const sentEmail = req.body.Email
-    const sentUsername = req.body.UserName
-    const sentPassword = req.body.Password
-    console.log( "what the " );
-    // sql statements to insert the user to the database
-    const SQL = 'INSERT INTO users (email, username, password) VALUES (?,?,?)'
-    // enter the value through variable
-    const Values = [ sentEmail, sentUsername, sentPassword ]
-    //Query to execute the sql statement stated above
-    db.query( SQL, Values, ( err, results ) =>
-    {
-        console.log( 'before if' )
-        if ( err )
-        {
-            console.log(err)
-            console.log( 'hiii' )
-            res.send(err)
-        } else
-        {
-            console.log( 'User inserted Successfully' )
-            res.send({message: 'User added!'})
-        }
-    } )
-    // at this point user hasn't been submitted yet, need to use express and cors
-} )
+app.post('/register', (req, res) => {
+    const sentEmail = req.body.Email;
+    const sentUsername = req.body.UserName;
+    const sentPassword = req.body.Password;
 
+    // Check if username already exists
+    const usernameCheckQuery = 'SELECT * FROM users WHERE username = ?';
+    db.query(usernameCheckQuery, [sentUsername], (err, results) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            if ( results.length > 0 )
+            {
+                console.log( "should be here" );
+                res.status(499).send({ message: 'Username already taken' });
+            } else {
+                // Insert new user
+                const insertQuery = 'INSERT INTO users (email, username, password) VALUES (?, ?, ?)';
+                const values = [sentEmail, sentUsername, sentPassword];
+                db.query(insertQuery, values, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send(err);
+                    } else {
+                        console.log('User inserted successfully');
+                        res.status(201).send({ message: 'User added!' });
+                    }
+                });
+            }
+        }
+    });
+});
 // now we need to login with these credentials from a registered user.
 // create route to login
 

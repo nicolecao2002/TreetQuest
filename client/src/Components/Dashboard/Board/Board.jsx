@@ -3,14 +3,19 @@ import './Board.css';
 import doodlerRightImg from './doodler_right.png';
 import doodlerLeftImg from './doodler_left.png';
 import platformImg from './platform.png';
+import platformImg2 from './platform2.png';
 
-const Board = ({ width, height }) => {
+const Board = ( { width, height, numTaskComplete } ) =>
+{
+    const [ platformImage, setPlatformImage ] = useState( new Image() );
+     
+  
   const canvasRef = useRef(null);
   const platformWidth = 60;
   const platformHeight = 18;
-  let gameOver = false;
+  let gameOver = true;
   let velocityX = 0;
-  let velocityY = -8;
+  let velocityY = -4;
 
   let doodler = {
     img: new Image(),
@@ -20,23 +25,48 @@ const Board = ({ width, height }) => {
     height: 80
   };
 
-  const platformImage = new Image();
-  platformImage.src = platformImg;
+  // const platformImage = new Image();
+    platformImage.src = platformImg;
+     if (numTaskComplete >= 10) {
+      platformImage.src = platformImg2;
+    } else {
+      platformImage.src = platformImg;
+    }
+    useEffect( () =>
+    {
+        const newImage = new Image();
+    // Update the platformImage source whenever numTaskComplete changes
+    if (numTaskComplete >= 10) {
+     newImage.src = platformImg2;
+    } else {
+     newImage.src = platformImg;
+    }
 
+    platformImage.onload = () => {
+        setPlatformImage( newImage );
+    };
+  }, [numTaskComplete]);
   const platformArray = [];
   let score = 0;
   let maxScore = 0;
   let animationFrameId = null; // Store the requestAnimationFrame ID
-
+ 
   function update() {
-    if (gameOver) {
-      stopAnimation(); // Stop animation when the game is over
-      return;
-    }
+    
+      
       
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
+      const context = canvas.getContext( '2d' );
+       // Draw score
+        context.fillStyle = 'red';
+        context.font = '16px sans-serif';
+        context.fillText(score, 5, 20);
+  if ( gameOver )
+      {
+       context.fillText('Game Over: Press "Space" to Restart', width / 80, height * 19 / 20);
+      stopAnimation(); // Stop animation when the game is over
+      return;
+      }
     context.clearRect(0, 0, width, height);
 
     // Wrap the doodler's x position around the canvas
@@ -55,10 +85,6 @@ const Board = ({ width, height }) => {
       context.drawImage(platform.img, platform.x, platform.y, platform.width, platform.height);
     }
 
-    // Draw score
-    context.fillStyle = 'black';
-    context.font = '16px sans-serif';
-    context.fillText(score, 5, 20);
 
     // Update score
     updateScore();
@@ -97,11 +123,11 @@ const Board = ({ width, height }) => {
     animationFrameId = requestAnimationFrame(update);
 
     // Draw game over text
-    if (gameOver) {
-      context.fillText('Game Over: Press "Space" to Restart', width / 7, height * 7 / 8);
-    }
+   
   }
 
+    
+    
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
@@ -115,6 +141,8 @@ const Board = ({ width, height }) => {
       placePlatforms();
       animationFrameId = requestAnimationFrame(update);
     };
+     
+
 
     document.addEventListener('keydown', moveDoodler);
 
@@ -215,14 +243,29 @@ const Board = ({ width, height }) => {
     }
   }
 
-  return (
+ 
+    
+ return (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundImage: `url(${numTaskComplete > 10 ? "./Background2.png" : "./Background.png"})`,
+      /* Add more troubleshooting styles here if needed */
+    }}
+  >
     <canvas
       ref={canvasRef}
       width={width}
       height={height}
-      className="board"
+      className="board" // Move the class name here
+      
     />
-  );
+  </div>
+);
 };
 
 export default Board;
+
+

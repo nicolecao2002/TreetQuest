@@ -13,7 +13,8 @@ const Dashboard = () =>
     small: 0,
     medium: 0,
     large: 0,
-  });
+     } );
+    const[complete, setComplete] =  useState( null );
    
     useEffect( () =>
     {
@@ -47,7 +48,12 @@ const Dashboard = () =>
                     }
                     return countByLevel;
                 }, {});
+
+                // Count completed tasks
+                const completedTasks = userTasks.filter(task => task.status === "completed").length;
+
                 setTaskCount(taskCountByLevel);
+                setComplete(completedTasks);
             })
             .catch(error => {
                 console.error("Error fetching user's task data:", error);
@@ -76,7 +82,8 @@ const Dashboard = () =>
                 {error ? <p>Error fetching user profile.</p> : (
                     <div>
                     <h1> Welcome {userName} </h1>
-                    <p>User ID: {userId}</p>
+                        <p>User ID: { userId }</p>
+                        <p>{ complete }</p>
                     </div>
                 )}
             </div>
@@ -90,11 +97,11 @@ const Dashboard = () =>
                             <a href="/decision">Spin!</a>
                         </div>
                         <div className='logout_container'>
-                            <HiOutlineLogout className='icon' />
+                            <HiOutlineLogout className='dash_icon' />
                             <a href="/">Log Out</a>
                             </div>
                     </div>
-                    <Board width={ 450 } height={ 600 } />
+                    <Board width={ 450 } height={ 600 } numTaskComplete = {complete} />
                     <div className='right_container'>
                         <div className='status_container'>
                              <h3>Task Status</h3>
@@ -102,10 +109,16 @@ const Dashboard = () =>
                         <p>Medium Tasks Remaining: {taskCount.medium ?? 0}</p>
                         <p>Large Tasks Remaining: {taskCount.large ?? 0}</p>
                         </div>
-                        <div className='instrution_container'>       
-                        <p>Hihihih ehjfewkljlkfjmwlnv wlcwekdmm lkdmnwqlkdmnmslkq jldjslkjld fvjlkfflsdkfl dlskfldks kdjflskf lkjf fkfls fjdlkfj l flkfjlk jlfk kfslk jflk js fdlkf jlkfj klfj ls jkl ls jkdl</p>
-                        
-                    </div>
+                    <div className='instruction_container'>
+                        <h4>How to Navigate this APP:</h4>
+                        <ul>
+                        <li>📝 Add tasks with "Add Task" link.</li>
+                        <li>🏆 Create various rewards with "Add Reward".</li>
+                        <li>🎉 Give it a whirl – Spin for a surprise reward.</li>
+                        <li>📌 Stay in the know – Task status is at the top right</li>
+                        </ul>
+                        <p> Jump into the game on the left by tapping the space button! 🎮 New surprises await for more task completed!</p>
+                        </div>
                     </div>
 
                 </div>
